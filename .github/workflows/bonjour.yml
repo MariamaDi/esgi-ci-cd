@@ -9,3 +9,7 @@ jobs:
     - run: echo "Bonjour 👋"
     - run: ls -l # Liste les fichier du répertoire courant
     - run: cat README.md # Affiche le contenu du fichier `README.md` à la base du dépôt
+    - run: |
+       sudo apt-get update
+       sudo apt-get install --yes cowsay
+    - run: cat README.md | cowsay
