@@ -1,16 +1,17 @@
 name: Bonjour
 on:
+- pull_request
 - push
 jobs:
   dire_bonjour:
     runs-on: ubuntu-22.04
     env:
       IMAGE_NAME: "mynode:19"
-    # container:
-    #   image: ghcr.io/dduportal/esgi-gitpod
-    #   options: --user=root
     steps:
     - uses: actions/checkout@v3
+    - uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: Dockerfile
     - run: docker image build --tag="${IMAGE_NAME}" ./
     - run: docker container run "${IMAGE_NAME}" npm run lint
     - name: Login to Docker Hub
