@@ -4,16 +4,15 @@ on:
 jobs:
   dire_bonjour:
     runs-on: ubuntu-22.04
-    container:
-      image: ghcr.io/dduportal/esgi-gitpod
-      options: --user=root
+    env:
+      IMAGE_NAME: "mynode:19"
+    # container:
+    #   image: ghcr.io/dduportal/esgi-gitpod
+    #   options: --user=root
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 19
-    - run: npm install
-    - run: npm run lint
+    - run: docker image build --tag="${IMAGE_NAME}" ./
+    - run: docker container run "${IMAGE_NAME}" npm run lint
     # - run: echo "Bonjour 👋"
     # - run: ls -l # Liste les fichier du répertoire courant
     # - run: cat README.md # Affiche le contenu du fichier `README.md` à la base du dépôt 
